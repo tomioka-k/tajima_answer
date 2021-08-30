@@ -14,6 +14,8 @@ class Classiffication(models.Model):
 
     class Meta:
         ordering = ['order', ]
+        verbose_name = '大分類'
+        verbose_name_plural = '大分類'
 
     def __str__(self):
         return self.name
@@ -21,7 +23,7 @@ class Classiffication(models.Model):
 
 class Method(models.Model):
     """"""
-    name = models.CharField(verbose_name='工法名名', max_length=255, unique=True,)
+    name = models.CharField(verbose_name='工法名', max_length=255, unique=True,)
     order = models.IntegerField(verbose_name='並び順', unique=True)
     created_at = models.DateField(verbose_name='作成日', default=timezone.now)
     updated_at = models.DateField(verbose_name="更新日", auto_now=True)

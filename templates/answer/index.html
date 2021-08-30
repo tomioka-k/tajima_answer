@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
+{% load markdown_extras %}
 
-{% block title %} top {% endblock %}
+{% block title %} Top | Answer {% endblock %}
 
 {% block content %}
 
@@ -17,7 +18,7 @@
             </div>
             <div class="card-content">
                 <div class="content">
-                    <b>{{ object.content }}</b>
+                    <b>{{ object.content|markdown|safe }}</b>
                     <p class="has-text-right">{{ object.created_at }}</p>
                 </div>   
                 <hr>
@@ -30,7 +31,7 @@
                 </div>
                 
                 {% endfor %}
-                <a class="button is-info is-rounded" href="#">回答する</a>
+                <a class="button is-info is-rounded is-small" href="#">回答する</a>
             </div>
         </div>
         {% endfor %}
