@@ -1,5 +1,6 @@
+from django.db.models import fields
 from django.forms import ModelForm
-from .models import Question
+from .models import Question, Reply
 
 
 class QuestionForm(ModelForm):
@@ -11,3 +12,9 @@ class QuestionForm(ModelForm):
             'method': '工法分類',
             'content': '質問内容',
         }
+
+
+class ReplyForm(ModelForm):
+    class Meta:
+        model = Reply
+        fields = ('content',)

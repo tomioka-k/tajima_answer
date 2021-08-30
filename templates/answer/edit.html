@@ -1,13 +1,13 @@
 {% extends 'base.html' %}
 {% load markdown_extras %}
 
-{% block title %} Top | Answer {% endblock %}
+{% block title %} Answer {% endblock %}
 
 {% block content %}
 
 <div class="columns main-question">
     <div class="column is-two-thirds">
-        {% for object in object_list %}
+      
 
         <div class="card card-question">
             <div class="card-header">
@@ -17,10 +17,17 @@
                 </div>
             </div>
             <div class="card-content">
-                <a class="content has-text-black" href="{% url 'answer:detail' object.pk %}">
-                    <b>{{ object.content|markdown|safe }}</b>
-                    <p class="has-text-right">{{ object.created_at }}</p>
-                </a>   
+                <div class="content">
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ form.media }}
+                        <label class="label">{{ form.content.label }}</label>
+                        {{ form.content }}
+                        <div class="section has-text-centered">
+                            <button class="button is-info is-rounded is-midium" type="submit">質問を更新する</button>
+                        </div>
+                    </form>
+                </div>   
                 <hr>
                 {% for reply in object.replies.all %}
                 <div>
@@ -31,12 +38,8 @@
                 </div>
                 
                 {% endfor %}
-                <div class="has-text-centered">
-                    <a class="button is-info is-rounded" href="{% url 'answer:detail' object.pk %}">回答する</a>
-                </div>
             </div>
         </div>
-        {% endfor %}
     </div>
     <div class="column is-one-thirds category-column">
         <div class="card">

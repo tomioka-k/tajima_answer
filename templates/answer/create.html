@@ -4,7 +4,7 @@
 {% block content %}
 
 <div class="section">
-    <form method="POST">
+    <form method="post">
 
         {% csrf_token %}
         {{ form.media }}
@@ -29,7 +29,6 @@
         {{ form.content }}
         <div class="section">
             <button class="button is-primary is-rounded is-midium  is-fullwidth" type="submit">質問を追加</button>
-
         </div>
     </form>
 </div>
