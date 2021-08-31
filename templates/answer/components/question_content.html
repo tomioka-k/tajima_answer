@@ -1,0 +1,4 @@
+{% load markdown_extras %}
+
+<b>{{ object.content|markdown|safe }}</b><br>
+<p class="has-text-right">{{ object.created_at }} | {{ object.user.get_full_name }}</p>

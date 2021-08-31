@@ -6,62 +6,82 @@
 {% block content %}
 
 <div class="columns main-question">
-    <div class="column is-two-thirds">
-      
+  <div class="column is-two-thirds">
+    <div class="card card-question">
 
-        <div class="card card-question">
-            <div class="card-header">
-                <div class="card-header-title">
-                    <span class="tag is-primary is-light">{{ object.classiffication }}</span>&nbsp;
-                    <span class="tag is-info is-light">{{ object.method }}</span>         
-                </div>
-            </div>
-            <div class="card-content">
-                <div class="content">
-                    <b>{{ object.content|markdown|safe }}</b>
-                    <p class="has-text-right">{{ object.created_at }}</p>
+      {% include 'answer/components/question_card_header.html' %}
 
-                    {% if object.user == user %}
-                    <div class="has-text-centered">
-                        <a class="button is-success is-rounded" href="{% url 'answer:edit' object.pk %}">質問を編集する</a>
-                    </div>
-                    {% endif %}
-                </div>   
-                <hr>
-                {% for reply in object.replies.all %}
-                <div>
-                    <p>{{ reply|markdown|safe }}</p>
-                    <p class="has-text-right">{{reply.created_at}}</p>
-                    
-                    <hr>
-                </div>
-                
-                {% endfor %}
-                {% if object.resolve is False %}
-                <form method="post">
-                    {% csrf_token %}
-                    {{ form.media }}
-                    <label class="label">{{ form.content.label }}</label>
-                    {{ form.content }}
-                    <div class="section has-text-centered">
-                        <button class="button is-info is-rounded is-midium" type="submit">回答を追加する</button>
-                    </div>
-                </form>
-                {% endif %}
-            </div>
+      <div class="card-content">
+        <div class="content">
+
+          {% include 'answer/components/question_content.html' %}
+
+          {% if object.user == user %}
+          <div class="field is-grouped is-grouped-centered">
+            <p class="control">
+              <a class="button is-success is-rounded is-small" href="{% url 'answer:edit' object.pk %}">編集する</a>
+            </p>
+            <p class="control">
+            <form method="post" action="{% url 'answer:delete' object.pk %}">
+              {% csrf_token %}
+              <button class="button is-danger is-rounded is-small" type="submit"
+                onclick='return confirm("削除してもよろしいですか?");'>
+                削除する
+              </button>
+            </form>
+            </p>
+          </div>
+          {% endif %}
         </div>
-    </div>
-    <div class="column is-one-thirds category-column">
-        <div class="card">
-            <div class="card-content">
-                <h1>大分類</h1>
-                {% for class in classiffication.all %}
-                <span class="tag is-info">{{ class }}</span>&nbsp;
-                {% endfor %}
-                <h1>工法分類</h1>
-            </div>
+        <hr />
+        {% for reply in object.replies.all %}
+        <div>
+
+          {% include 'answer/components/reply_content.html' %}
+
+          <br>
+          {% if reply.user == user %}
+          <div class="field is-grouped is-grouped-centered">
+            <p class="control">
+              <a class="button is-success is-rounded is-small"
+                href="{% url 'answer:edit-reply' object.pk reply.pk %}">編集する</a>
+            </p>
+            <p class="control">
+            <form method="post" action="{% url 'answer:delete-reply' object.pk reply.pk %}">
+              {% csrf_token %}
+              <button class="button is-danger is-rounded is-small" type="submit"
+                onclick='return confirm("削除してもよろしいですか?");'>
+                削除する
+              </button>
+            </form>
+            </p>
+          </div>
+          {% endif %}
+
+          <hr />
         </div>
+
+        {% endfor %}
+
+        {% if object.resolve is False %}
+        <form method="post">
+          {% csrf_token %}
+          {{ form.media }}
+          <label class="label">{{ form.content.label }}</label>
+          {{ form.content }}
+          <div class="section has-text-centered">
+            <button class="button is-info is-rounded is-midium" type="submit">
+              回答を追加する
+            </button>
+          </div>
+        </form>
+        {% endif %}
+      </div>
     </div>
+  </div>
+
+  {% include 'answer/components/category_column.html' %}
+
 </div>
 
 {% endblock %}
