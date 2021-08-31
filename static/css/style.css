@@ -2,6 +2,10 @@ body {
   background-color: #fafafa;
 }
 
+.header {
+  background-color: white;
+}
+
 .registration-area {
   /* background-color: #fafafa; */
   width: 100%;

@@ -1,27 +1,29 @@
 {% load static %}
-<div class="container">
-<nav class="navbar" role="navigation" aria-label="main navigation">
-    <div class="navbar-brand">
-      <a class="navbar-item" href="{% url 'answer:index' %}">
-        <img src="{% static 'image/Answer.png' %}" alt="Bulma: Free, open source, and modern CSS framework based on Flexbox" width="112" height="28">
-      </a>
-  
-      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
-        <span aria-hidden="true"></span>
-        <span aria-hidden="true"></span>
-        <span aria-hidden="true"></span>
-      </a>
-    </div>
-    <div class="navbar-end">
-      <div class="navbar-item">
-        <div class="field is-grouped">
-          <p class="control">
-            <a class="button is-danger is-rounded is-small" href="{% url 'answer:create' %}">
-              <span>質問を追加する</span>
-            </a>
-          </p>
+<div class="header">
+  <div class="container">
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+      <div class="navbar-brand">
+        <a class="navbar-item" href="{% url 'answer:index' %}">
+          <img src="{% static 'image/Answer.png' %}"
+            alt="Bulma: Free, open source, and modern CSS framework based on Flexbox" width="112" height="28" />
+        </a>
+        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+      </div>
+      <div class="navbar-end">
+        <div class="navbar-item">
+          <div class="field is-grouped">
+            <p class="control">
+              <a class="button is-danger is-rounded" href="{% url 'answer:create' %}">
+                <span>質問を追加する</span>
+              </a>
+            </p>
+          </div>
         </div>
       </div>
-    </div>
-  </nav>
+    </nav>
+  </div>
 </div>

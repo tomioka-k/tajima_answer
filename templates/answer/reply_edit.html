@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load markdown_extras %}
+
+{% block title %} Answer {% endblock %}
+
+{% block content %}
+
+<div class="columns main-question">
+    <div class="column is-two-thirds">
+        <div class="card card-question">
+
+            {% include 'answer/components/question_card_header.html' %}
+
+            <div class="card-content">
+                <div class="content">
+
+                    {% include 'answer/components/question_content.html' %}
+
+                </div>
+                <hr />
+                {% for reply in object.replies.all %}
+                <div>
+
+                    {% if reply.id == reply_id %}
+
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ form.media }}
+                        <label class="label">{{ form.content.label }}</label>
+                        {{ form.content }}
+                        <div class="section has-text-centered">
+                            <button class="button is-info is-rounded is-midium" type="submit">
+                                回答を更新する
+                            </button>
+                        </div>
+                    </form>
+
+                    {% else %}
+
+                    {% include 'answer/components/reply_content.html' %}
+                    <br>
+
+                    {% endif %}
+
+                    <hr />
+                </div>
+
+                {% endfor %}
+
+            </div>
+        </div>
+    </div>
+
+    {% include 'answer/components/category_column.html' %}
+
+</div>
+
+{% endblock %}

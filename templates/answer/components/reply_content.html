@@ -1,0 +1,4 @@
+{% load markdown_extras %}
+
+<p>{{ reply|markdown|safe }}</p><br>
+<p class="has-text-right">{{reply.created_at}} | {{ object.user.get_full_name }}</p>

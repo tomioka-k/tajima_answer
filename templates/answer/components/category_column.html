@@ -1,0 +1,11 @@
+<div class="column is-one-thirds category-column">
+    <div class="card">
+        <div class="card-content">
+            <h1>大分類</h1>
+            {% for class in classiffication.all %}
+            <span class="tag is-info">{{ class }}</span>&nbsp;
+            {% endfor %}
+            <h1>工法分類</h1>
+        </div>
+    </div>
+</div>
