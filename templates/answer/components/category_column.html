@@ -5,8 +5,39 @@
         <div class="card-content">
 
             <form method="GET">
+                <h1 style="margin-bottom: 1rem;">キーワード検索</h1>
+                <div class="field has-addons">
+                    <div class="control">
+                        <input class="input is-small" type="text" placeholder="テキストを入力" name="content"
+                            value="{{ request.GET.content }}">
+                    </div>
+                    <div class="control">
+                        <button class="button is-info is-small" type="submit">検索</button>
+                    </div>
+                </div>
+                <hr>
+                <!-- resolve -->
+                <p style="margin-bottom: 1rem;">回答</p>
+                <button class="button is-small is-light" style="margin: 0.2rem 0 0.2rem 0;" name="resolve" value="">
+                    全て
+                </button>&nbsp;
+                <a class="tag is-small is-danger" style="margin: 0.2rem 0 0.2rem 0;"
+                    href="?{%  url_replace request 'resolve' True %}">
+                    解決済
+                </a>&nbsp;
+                <a class="tag is-small is-info" style="margin: 0.2rem 0 0.2rem 0;"
+                    href="?{%  url_replace request 'resolve' False %}">
+                    受付中
+                </a>&nbsp;
+                <a class="tag is-small is-success" style="margin: 0.2rem 0 0.2rem 0;"
+                    href="?{%  url_replace request 'user' user.id %}">
+                    自分の質問
+                </a>&nbsp;
+                <hr>
+
+
                 <!-- class -->
-                <h1 style="margin-bottom: 1rem;">大分類</h1>
+                <p style="margin-bottom: 1rem;">大分類</p>
                 <button class="button is-small is-success" style="margin: 0.2rem 0 0.2rem 0;" name="classiffication"
                     value="">
                     全て
@@ -17,8 +48,9 @@
                     {{ class}}
                 </a>&nbsp;
                 {% endfor %}
+                <hr>
                 <!-- method -->
-                <h1 style="margin: 1rem 0 1rem 0;">工法分類</h1>
+                <p style="margin: 1rem 0 1rem 0;">工法分類</p>
                 <button class="button is-small is-link" style="margin: 0.2rem 0 0.2rem 0;" name="method" value="">
                     全て
                 </button>&nbsp;

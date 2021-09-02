@@ -13,20 +13,28 @@ from .forms import QuestionForm, ReplyForm
 class IndexView(LoginRequiredMixin, generic.ListView):
     model = Question
     template_name = 'answer/index.html'
-    paginate_by = 20
+    paginate_by = 3
 
     def get_queryset(self):
         request = self.request.GET
+        s_content = request.get('content')
         s_class = request.get('classiffication')
         s_method = request.get('method')
+        s_resolve = request.get('resolve')
+        q_content = Q()
         q_class = Q()
         q_method = Q()
+        q_resolve = Q()
+        if s_content:
+            q_content = Q(content__contains=s_content)
         if s_class:
             q_class = Q(classiffication=s_class)
         if s_method:
             q_method = Q(method=s_method)
+        if s_resolve:
+            q_resolve = Q(resolve=s_resolve)
         object_list = Question.objects.filter(
-            q_class & q_method
+            q_content & q_class & q_method & q_resolve
         )
         return object_list
 
