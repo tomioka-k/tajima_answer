@@ -5,8 +5,11 @@
 
 {% block content %}
 
+
+
 <div class="columns main-question">
     <div class="column is-two-thirds">
+
         {% for object in object_list %}
 
         <div class="card card-question">
@@ -14,26 +17,38 @@
             {% include 'answer/components/question_card_header.html' %}
 
             <div class="card-content">
-                <a class="content has-text-black" href="{% url 'answer:detail' object.pk %}">
+                <div class="columns">
+                    <div class="column is-1">
+                        <nav class="level">
+                            <div class="level-item has-text-centered">
+                                <div>
+                                    <p class="heading">
+                                        {% if object.resolve is False %}
+                                        <span class="tag is-info">受付中</span>
+                                        {% else %}
+                                        <span class="tag is-danger">解決済</span>
+                                        {% endif %}
+                                    </p>
+                                    <p class="heading">回答</p>
+                                    <p class="title">{{ object.replies.count }}</p>
+                                </div>
+                            </div>
+                        </nav>
+                    </div>
+                    <div class="column">
+                        <a class="content has-text-black" href="{% url 'answer:detail' object.pk %}">
 
-                    {% include 'answer/components/question_content.html' %}
+                            {% include 'answer/components/question_content.html' %}
 
-                </a>
-                <hr />
+                        </a>
 
-                {% for reply in object.replies.all %}
-
-                {% include 'answer/components/reply_content.html' %}
-                <hr>
-
-                {% endfor %}
-
-                <div class="has-text-centered">
-                    <a class="button is-info is-rounded" href="{% url 'answer:detail' object.pk %}">回答する</a>
+                    </div>
                 </div>
             </div>
         </div>
         {% endfor %}
+
+        {% include 'pagenate.html' %}
     </div>
 
     {% include 'answer/components/category_column.html' %}

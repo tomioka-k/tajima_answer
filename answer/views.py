@@ -1,11 +1,12 @@
 from django.core.checks import messages
+from django.db.models import Q
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.http import require_POST
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import generic
-from .models import Classiffication, Question, Reply
+from .models import Classiffication, Question, Reply, Method
 from .forms import QuestionForm, ReplyForm
 
 
@@ -14,10 +15,28 @@ class IndexView(LoginRequiredMixin, generic.ListView):
     template_name = 'answer/index.html'
     paginate_by = 20
 
+    def get_queryset(self):
+        request = self.request.GET
+        s_class = request.get('classiffication')
+        s_method = request.get('method')
+        q_class = Q()
+        q_method = Q()
+        if s_class:
+            q_class = Q(classiffication=s_class)
+        if s_method:
+            q_method = Q(method=s_method)
+        object_list = Question.objects.filter(
+            q_class & q_method
+        )
+        return object_list
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         classiffication = Classiffication.objects.all()
+        method = Method.objects.all()
         context['classiffication'] = classiffication
+        context['method'] = method
+
         return context
 
 

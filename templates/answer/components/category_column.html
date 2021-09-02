@@ -1,11 +1,34 @@
+{% load simple_tags %}
+
 <div class="column is-one-thirds category-column">
-    <div class="card">
+    <div class="card sticky">
         <div class="card-content">
-            <h1>大分類</h1>
-            {% for class in classiffication.all %}
-            <span class="tag is-info">{{ class }}</span>&nbsp;
-            {% endfor %}
-            <h1>工法分類</h1>
+
+            <form method="GET">
+                <!-- class -->
+                <h1 style="margin-bottom: 1rem;">大分類</h1>
+                <button class="button is-small is-success" style="margin: 0.2rem 0 0.2rem 0;" name="classiffication"
+                    value="">
+                    全て
+                </button>&nbsp;
+                {% for class in classiffication.all %}
+                <a class="tag is-small is-success is-light" style="margin: 0.2rem 0 0.2rem 0;"
+                    href="?{%  url_replace request 'classiffication' class.id %}">
+                    {{ class}}
+                </a>&nbsp;
+                {% endfor %}
+                <!-- method -->
+                <h1 style="margin: 1rem 0 1rem 0;">工法分類</h1>
+                <button class="button is-small is-link" style="margin: 0.2rem 0 0.2rem 0;" name="method" value="">
+                    全て
+                </button>&nbsp;
+                {% for method in method.all %}
+                <a class="tag is-small is-link is-light" style="margin: 0.2rem 0 0.2rem 0;"
+                    href="?{%  url_replace request 'method' method.id %}">
+                    {{ method }}
+                </a>&nbsp;
+                {% endfor %}
+            </form>
         </div>
     </div>
 </div>
