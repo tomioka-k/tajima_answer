@@ -74,6 +74,9 @@ TEMPLATES = [
                 'social_django.context_processors.backends',
                 'social_django.context_processors.login_redirect',
             ],
+            'libraries': {
+                'simple_tags': 'answer.templatetags.simple_tags'
+            }
         },
     },
 ]
